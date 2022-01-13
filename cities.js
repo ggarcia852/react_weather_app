@@ -11,7 +11,9 @@ export default class Search extends React.Component {
   };
 
   getCity = async (city) => {
-    const hasCity = this.state.cities.find((element) => element.login === city);
+    const hasCity = this.state.cities.find(
+      (element) => element.name.toLowerCase() === city.toLowerCase()
+    );
     if (hasCity) {
       this.setState({
         isLoading: false,
