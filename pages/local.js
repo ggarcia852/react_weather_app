@@ -1,5 +1,8 @@
 import React from "react";
 import axios from "axios";
+import LocalHeader from "/src/Components/LocalHeader";
+import WeatherCard from "/src/Components/WeatherCard";
+import { StyledDiv } from "./styles";
 
 export default class Local extends React.Component {
   state = {
@@ -61,42 +64,18 @@ export default class Local extends React.Component {
   }
 
   render() {
+    const city = this.state.localWeather;
     return (
       <div>
-        <h1>Weather App</h1>
-        <h2>Current weather for your location:</h2>
-        {this.state.hasError && <div>{this.state.userMessage}</div>}
-        {this.state.isLoading && <div>Loading local weather...</div>}
-
+        <LocalHeader />
+        {this.state.hasError && <StyledDiv>{this.state.userMessage}</StyledDiv>}
+        {this.state.isLoading && (
+          <StyledDiv>Loading local weather...</StyledDiv>
+        )}
         {this.state.localWeather && (
-          <>
-            <div>
-              {this.state.localWeather.name},{" "}
-              {this.state.localWeather.sys.country}
-            </div>
-            <img src={this.state.weatherIcon} alt="weather icon" />
-            <div>
-              Current temperature:{" "}
-              {this.state.localWeather.main.temp.toFixed(0)}° F
-            </div>
-            <div>
-              Feels like: {this.state.localWeather.main.feels_like.toFixed(0)}°
-              F
-            </div>
-            <div>
-              Description: {this.state.localWeather.weather[0].main}(
-              {this.state.localWeather.weather[0].description})
-            </div>
-            <div>
-              Today's low: {this.state.localWeather.main.temp_min.toFixed(0)}° F
-            </div>
-            <div>
-              Today's high: {this.state.localWeather.main.temp_max.toFixed(0)}°
-              F
-            </div>
-            <div>Humidity: {this.state.localWeather.main.humidity}%</div>
-            <div>Wind: {this.state.localWeather.wind.speed.toFixed(0)} mph</div>
-          </>
+          <div>
+            <WeatherCard city={city} weatherIcon={this.state.weatherIcon} />
+          </div>
         )}
       </div>
     );
