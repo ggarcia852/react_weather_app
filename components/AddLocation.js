@@ -1,14 +1,15 @@
-import React from "react";
-import { StyledHeader } from "../LocalHeader/styles";
+import { Component } from "react";
+import { StyledDiv } from "./styles";
 
-export default class SearchHeader extends React.Component {
+export default class LocalHeader extends Component {
   state = {
     searchTerm: ""
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.getCity(this.state.searchTerm);
+    const newCity = this.state.searchTerm;
+    this.props.handleSubmit(newCity);
     this.setState({ searchTerm: "" });
   };
 
@@ -17,12 +18,12 @@ export default class SearchHeader extends React.Component {
   };
   render() {
     return (
-      <StyledHeader>
-        <h2>Search for other locations: </h2>
+      <StyledDiv>
+        <div>Add other locations:</div>
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} value={this.state.searchTerm} />
         </form>
-      </StyledHeader>
+      </StyledDiv>
     );
   }
 }
